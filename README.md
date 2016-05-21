@@ -1,6 +1,6 @@
-# pngweb
+# PrimeNumber Generator Web
 
-How to start the pngweb application
+How to start the png web application
 ---
 
 1. Run `mvn clean install` to build your application
