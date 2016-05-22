@@ -7,12 +7,12 @@ import com.jlogicsolutions.primenumbergenerator.core.PrimeGeneratorService;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.ClassRule;
+import org.junit.Rule;
 
 import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -22,12 +22,12 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class BasicPrimeGeneratorResourceTest {
-    private static final PrimeGeneratorService service = mock(BasicPrimeGeneratorService.class);
+    private final PrimeGeneratorService service = mock(BasicPrimeGeneratorService.class);
     public static final String PRIMES = "/primes";
     private ArrayList<Long> expectedPrimes = Lists.newArrayList(2l, 3l, 5l, 7l, 11l);
 
-    @ClassRule
-    public static final ResourceTestRule resources = ResourceTestRule.builder()
+    @Rule
+    public final ResourceTestRule resources = ResourceTestRule.builder()
             .addResource(new BasicPrimeGeneratorResource(service))
             .build();
     public static final Long HIGHEST_PRIME_REQUIRED = 1000l;
@@ -47,7 +47,7 @@ public class BasicPrimeGeneratorResourceTest {
         try {
             resources.client().target(PRIMES).request().get(List.class);
             fail();
-        }catch (ForbiddenException ex){
+        } catch (ForbiddenException ex) {
             assertThat(ex.getMessage()).isEqualTo("HTTP 403 Forbidden");
         }
 
@@ -59,13 +59,9 @@ public class BasicPrimeGeneratorResourceTest {
         when(future.isDone()).thenReturn(false);
         when(service.startPrimeGeneration(anyLong())).thenReturn(future);
         startGeneration();
-        try {
-            resources.client().target(PRIMES).request().get(List.class);
-            fail();
-        }catch (NotFoundException ex){
-            assertThat(ex.getMessage()).isEqualTo("HTTP 404 Not Found");
-        }
-
+        Response response = resources.client().target(PRIMES).request().get();
+        assertThat(response.getStatus()).isEqualTo(202);
+        assertThat(response.getStatusInfo().getReasonPhrase()).isEqualTo("Accepted");
     }
 
     @org.junit.Test
@@ -79,7 +75,16 @@ public class BasicPrimeGeneratorResourceTest {
 
     @org.junit.Test
     public void startGeneration() throws Exception {
-        resources.client().target(PRIMES +"/"+HIGHEST_PRIME_REQUIRED).request().post(Entity.entity(null, MediaType.TEXT_PLAIN_TYPE));
+        resources.client().target(PRIMES + "/" + HIGHEST_PRIME_REQUIRED).request().post(Entity.entity(null, MediaType.TEXT_PLAIN_TYPE));
         verify(service).startPrimeGeneration(HIGHEST_PRIME_REQUIRED);
+    }
+
+    @org.junit.Test
+    public void startGenerationWhenInProgress() throws Exception {
+        when(service.startPrimeGeneration(anyLong())).thenReturn(Futures.immediateFuture(expectedPrimes));
+        startGeneration();
+        verifyNoMoreInteractions(service);
+        Response response = resources.client().target(PRIMES + "/" + HIGHEST_PRIME_REQUIRED).request().post(Entity.entity(null, MediaType.TEXT_PLAIN_TYPE));
+        assertThat(response.getStatus()).isEqualTo(403);
     }
 }

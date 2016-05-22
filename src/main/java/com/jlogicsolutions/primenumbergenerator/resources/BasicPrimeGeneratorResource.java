@@ -26,13 +26,13 @@ public class BasicPrimeGeneratorResource {
     }
 
     @GET
-    public List<Long> fetchResults() {
+    public Response fetchResults() {
         if(primeResults == null){
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
+            throw new WebApplicationException("Number Generation not initiated", Response.Status.FORBIDDEN);
         }
         if(primeResults.isDone()){
             try {
-                return primeResults.get();
+                return Response.ok(primeResults.get()).build();
             } catch (InterruptedException e) {
                 throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
             } catch (ExecutionException e) {
@@ -41,12 +41,15 @@ public class BasicPrimeGeneratorResource {
                 primeResults = null;
             }
         }
-        throw new WebApplicationException(Response.Status.NOT_FOUND);
+        return Response.accepted().build();
     }
 
     @POST
     @Path("{upperLimit}")
     public Response startGeneration(@PathParam("upperLimit") LongParam upperLimit) {
+        if(primeResults != null){
+            throw new WebApplicationException("Number Generation In Progress", Response.Status.FORBIDDEN);
+        }
         primeResults = primeGeneratorService.startPrimeGeneration(upperLimit.get());
         return Response.created(UriBuilder.fromResource(BasicPrimeGeneratorResource.class).build())
                 .build();
