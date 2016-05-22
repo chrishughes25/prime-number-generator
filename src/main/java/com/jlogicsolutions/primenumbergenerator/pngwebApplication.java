@@ -1,5 +1,7 @@
 package com.jlogicsolutions.primenumbergenerator;
 
+import com.jlogicsolutions.primenumbergenerator.core.BasicPrimeGeneratorService;
+import com.jlogicsolutions.primenumbergenerator.resources.BasicPrimeGeneratorResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -23,7 +25,7 @@ public class pngwebApplication extends Application<pngwebConfiguration> {
     @Override
     public void run(final pngwebConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        environment.jersey().register(new BasicPrimeGeneratorResource(new BasicPrimeGeneratorService()));
     }
 
 }
