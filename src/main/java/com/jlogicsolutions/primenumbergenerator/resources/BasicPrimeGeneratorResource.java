@@ -1,10 +1,8 @@
 package com.jlogicsolutions.primenumbergenerator.resources;
 
 import com.jlogicsolutions.primenumbergenerator.core.PrimeGeneratorService;
-import io.dropwizard.jersey.params.IntParam;
 import io.dropwizard.jersey.params.LongParam;
 
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-@Path("/generate")
+@Path("/primes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.TEXT_PLAIN)
 public class BasicPrimeGeneratorResource {
