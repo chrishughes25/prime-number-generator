@@ -1,7 +1,5 @@
 package com.jlogicsolutions.primenumbergenerator.core;
 
-import jersey.repackaged.com.google.common.collect.Lists;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,11 +18,10 @@ public class BasicPrimeGeneratorServiceTest {
     }
 
     @Test
-    public void getLargestPrimeCalculated() throws Exception {
+    public void checkPrimesToTenCalculated() throws Exception {
         Future<List<Long>> primesList = basicPrimeGeneratorService.startPrimeGeneration(10L);
 
         assertThat(primesList.get()).containsExactly(2L, 3L, 5L, 7L);
-//        assertThat(7l).isEqualTo(basicPrimeGeneratorService.getLargestPrimeCalculated());
     }
 
     @Test
