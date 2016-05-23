@@ -20,7 +20,6 @@ public abstract class AbstractPrimeGeneratorService implements PrimeGeneratorSer
      * @return
      */
     @Override
-    @Timed
     public Future<List<Long>> startPrimeGeneration(final Long highestPrimeRequired) {
         ForkJoinPool forkJoinPool = new ForkJoinPool(3);
         CompletableFuture<List<Long>> primes = CompletableFuture.supplyAsync(() ->
