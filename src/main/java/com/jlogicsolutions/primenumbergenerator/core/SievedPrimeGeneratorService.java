@@ -12,8 +12,8 @@ public class SievedPrimeGeneratorService extends AbstractPrimeGeneratorService {
 
     /**
      * Sieved implementation, optimisation to reduce candidates by removing multiples of most common primes
-     * @param upperLimit
-     * @return
+     * @param upperLimit stop generating at this point
+     * @return LongStream of range candidates
      */
     protected LongStream getRangeCandidates(long upperLimit) {
         LongStream longStream = rangeClosed(2, upperLimit)

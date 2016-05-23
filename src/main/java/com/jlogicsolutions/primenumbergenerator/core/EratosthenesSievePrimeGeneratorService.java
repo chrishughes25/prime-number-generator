@@ -19,19 +19,19 @@ public class EratosthenesSievePrimeGeneratorService implements PrimeGeneratorSer
     /**
      * starts generating prime numbers upto the given value
      *
-     * @param highestPrimeRequired
-     * @return
+     * @param upperLimit stop generating at this point
+     * @return <code>Future</code> for <code>List</code> of prime numbers
      */
     @Override
     @Timed
-    public Future<List<Long>> startPrimeGeneration(final Long highestPrimeRequired) {
+    public Future<List<Long>> startPrimeGeneration(final Long upperLimit) {
         ForkJoinPool forkJoinPool = new ForkJoinPool(3);
-        return CompletableFuture.supplyAsync(() -> getPrimeList(highestPrimeRequired), forkJoinPool);
+        return CompletableFuture.supplyAsync(() -> getPrimeList(upperLimit), forkJoinPool);
     }
 
-    private List<Long> getPrimeList(Long highestPrimeRequired) {
-        LongStream longStream = rangeClosed(2, highestPrimeRequired).parallel();
-        double maxDivisor = Math.sqrt(highestPrimeRequired);
+    private List<Long> getPrimeList(Long upperLimit) {
+        LongStream longStream = rangeClosed(2, upperLimit).parallel();
+        double maxDivisor = Math.sqrt(upperLimit);
         for(long d = 2; d < maxDivisor; d++){
             long divisor = d;
             longStream = longStream.filter(i -> (i <= divisor || i % divisor > 0));

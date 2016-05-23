@@ -10,11 +10,15 @@ How to start the png web application
 How to use the png web application
 ---
 The application is to demonstrate generation of prime numbers.
-1. to start generation of primes up to a certain value send a POST
+
+To start generation of primes up to a certain value send a POST to one of 3 implementations
+
 ```
-$ curl -X POST http://localhost:8080/primes/1000000
+$ curl -X POST http://localhost:8080/primes/basic/1000000
+$ curl -X POST http://localhost:8080/primes/optimised/1000000
+$ curl -X POST http://localhost:8080/primes/eratosthenes/1000000
 ```
-2. to retrieve results send a GET to /primes
+To retrieve results send a GET to /primes
 The application will return status 202 if it is still processing.
 ```
 $ curl http://localhost:8080/primes
@@ -24,3 +28,8 @@ Health Check
 ---
 
 To see your applications health enter url `http://localhost:8081/healthcheck`
+
+Metrics
+-------
+
+To see your applications metrics enter url `http://localhost:8081/metrics`

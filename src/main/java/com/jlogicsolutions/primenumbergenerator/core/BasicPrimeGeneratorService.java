@@ -12,8 +12,8 @@ public class BasicPrimeGeneratorService extends AbstractPrimeGeneratorService {
 
     /**
      * basic implementation gets a list of all numbers up to the given limit
-     * @param upperLimit
-     * @return
+     * @param upperLimit of prime range
+     * @return LongStream of range candidates
      */
     protected LongStream getRangeCandidates(long upperLimit) {
         return rangeClosed(2, upperLimit);
