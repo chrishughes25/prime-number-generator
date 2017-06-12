@@ -33,3 +33,7 @@ Metrics
 -------
 
 To see your applications metrics enter url `http://localhost:8081/metrics`
+
+CI
+-------
+CI pipeline available at: `https://app.shippable.com/subs/github/chrishughes25/pipelines`
