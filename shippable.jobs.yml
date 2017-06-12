@@ -1,0 +1,15 @@
+jobs:
+  - name: png-manifest
+    type: manifest
+    steps:
+     - IN: png-img
+     - TASK: managed
+
+  - name: png-dev-deploy
+    type: deploy
+    steps:
+      - IN: png-manifest
+      - IN: png-img-options
+      - IN: shippable-demo
+      - TASK: managed
+        deployMethod: upgrade
