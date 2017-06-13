@@ -1,8 +1,6 @@
 package com.jlogicsolutions.primenumbergenerator.core;
 
 
-import com.codahale.metrics.annotation.Timed;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
@@ -47,7 +45,7 @@ public abstract class AbstractPrimeGeneratorService implements PrimeGeneratorSer
      */
     private boolean checkIfPrime(long candidatePrime) {
         return getRangeCandidates((long) sqrt(candidatePrime))
-                        .noneMatch(divisor -> candidatePrime % divisor == 0);
+                .noneMatch(divisor -> candidatePrime % divisor == 0);
     }
 
 }

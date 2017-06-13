@@ -27,3 +27,7 @@ integrations:
     - integrationName: woodford-ecr
       type: ecr
       region: eu-west-2
+  notifications:
+    - integrationName: slack-beta-deployment
+      type: slack
+      recipients: "#deployments"

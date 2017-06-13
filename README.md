@@ -1,8 +1,9 @@
 # PrimeNumber Generator Web
+[![Run Status](https://api.shippable.com/projects/593eab66118f370700fb89b7/badge?branch=master)](https://app.shippable.com/github/chrishughes25/prime-number-generator)
+[![Coverage Badge](https://api.shippable.com/projects/593eab66118f370700fb89b7/coverageBadge?branch=master)](https://app.shippable.com/github/chrishughes25/prime-number-generator)
 
 How to start the png web application
 ---
-
 1. Run `mvn clean install` to build your application
 2. Start application with `java -jar target/pngweb-1.0-SNAPSHOT.jar server config.yml`
 3. To check that your application is running enter url `http://localhost:8080`
@@ -26,14 +27,8 @@ $ curl http://localhost:8080/primes
 
 Health Check
 ---
-
 To see your applications health enter url `http://localhost:8081/healthcheck`
 
 Metrics
 -------
-
 To see your applications metrics enter url `http://localhost:8081/metrics`
-
-CI
--------
-CI pipeline available at: `https://app.shippable.com/subs/github/chrishughes25/pipelines`

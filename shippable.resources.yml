@@ -6,7 +6,7 @@ resources:
       sourceName: "221870936645.dkr.ecr.eu-west-2.amazonaws.com/shippable-example-primenumbergen-java-ecr"
       isPull: false
     seed:
-      versionName: "master.3"  #replace with your image tag on Amazon ECR
+      versionName: $BRANCH.$BUILD_NUMBER
 
   - name: png-img-options
     type: dockerOptions
@@ -19,5 +19,5 @@ resources:
     type: cluster
     integration: woodford-aws  # your Amazon ECS integration
     pointer:
-      sourceName : "shippable-demo" #replace with name of the cluster to which you are deploying
-      region: "eu-west-2" #replace with region of the cluster to which you are deploying
+      sourceName : "shippable-demo"
+      region: "eu-west-2"

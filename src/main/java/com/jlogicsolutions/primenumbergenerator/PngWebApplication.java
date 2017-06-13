@@ -5,10 +5,11 @@ import com.jlogicsolutions.primenumbergenerator.core.EratosthenesSievePrimeGener
 import com.jlogicsolutions.primenumbergenerator.core.SievedPrimeGeneratorService;
 import com.jlogicsolutions.primenumbergenerator.resources.PrimeGeneratorResource;
 import io.dropwizard.Application;
-import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.Configuration;
+import io.dropwizard.servlets.tasks.GarbageCollectionTask;
 import io.dropwizard.setup.Environment;
 
-public class PngWebApplication extends Application<PngWebConfiguration> {
+public class PngWebApplication extends Application<Configuration> {
 
     public static void main(final String[] args) throws Exception {
         new PngWebApplication().run(args);
@@ -20,12 +21,7 @@ public class PngWebApplication extends Application<PngWebConfiguration> {
     }
 
     @Override
-    public void initialize(final Bootstrap<PngWebConfiguration> bootstrap) {
-        // TODO: application initialization
-    }
-
-    @Override
-    public void run(final PngWebConfiguration configuration,
+    public void run(final Configuration configuration,
                     final Environment environment) {
         environment.jersey().register(
                 new PrimeGeneratorResource(
@@ -33,6 +29,8 @@ public class PngWebApplication extends Application<PngWebConfiguration> {
                         new SievedPrimeGeneratorService(),
                         new EratosthenesSievePrimeGeneratorService()
                 ));
+
+        environment.admin().addTask(new GarbageCollectionTask());
     }
 
 }
