@@ -6,7 +6,7 @@ resources:
       sourceName: "221870936645.dkr.ecr.eu-west-2.amazonaws.com/shippable-example-primenumbergen-java-ecr"
       isPull: false
     seed:
-      versionName: $BRANCH.$BUILD_NUMBER
+      versionName: "master.7"
 
   - name: png-img-options
     type: dockerOptions
