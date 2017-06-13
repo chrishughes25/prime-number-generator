@@ -25,7 +25,7 @@ resources:
   - name: png-replicas
     type: replicas
     version:
-      count: 2
+      count: 1
 
   - name: internet-alb
     type: loadBalancer
