@@ -17,6 +17,7 @@ build:
     # build docker image and push to registry
     - docker build -t $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER $SHIPPABLE_BUILD_DIR
     - docker push $DOCKER_ACC/$DOCKER_REPO:$BRANCH.$BUILD_NUMBER
+    - echo "versionName=$BRANCH.$BUILD_NUMBER" >> $JOB_STATE/png-img.env
 
   on_success:
     # save latest image version to state
