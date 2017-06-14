@@ -4,6 +4,7 @@ import com.jlogicsolutions.primenumbergenerator.core.BasicPrimeGeneratorService;
 import com.jlogicsolutions.primenumbergenerator.core.EratosthenesSievePrimeGeneratorService;
 import com.jlogicsolutions.primenumbergenerator.core.SievedPrimeGeneratorService;
 import com.jlogicsolutions.primenumbergenerator.resources.PrimeGeneratorResource;
+import com.jlogicsolutions.primenumbergenerator.resources.VersionResource;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.servlets.tasks.GarbageCollectionTask;
@@ -29,6 +30,7 @@ public class PngWebApplication extends Application<Configuration> {
                         new SievedPrimeGeneratorService(),
                         new EratosthenesSievePrimeGeneratorService()
                 ));
+        environment.jersey().register(new VersionResource());
 
         environment.admin().addTask(new GarbageCollectionTask());
     }
