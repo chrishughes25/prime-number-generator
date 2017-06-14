@@ -33,4 +33,3 @@ Metrics
 -------
 To see your applications metrics enter url `http://localhost:8081/metrics`
 
-some change
