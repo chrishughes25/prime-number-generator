@@ -8,6 +8,7 @@ public final class Version {
     private final String svn = "${project.scm.developerConnection}";
     private final String svnBranch = "${scmBranch}";
     private final String revision = "${buildNumber}";
+    private final String environment = System.getenv("ENVIRONMENT");
 
     public String getVersion() {
         return version;
@@ -34,6 +35,6 @@ public final class Version {
     }
 
     public String getEnvironment() {
-        return System.getenv("ENVIRONMENT");
+        return environment;
     }
 }
