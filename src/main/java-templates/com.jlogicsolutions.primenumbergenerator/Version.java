@@ -32,4 +32,8 @@ public final class Version {
     public String getRevision() {
         return revision;
     }
+
+    public String getEnvironment() {
+        return System.getenv("ENVIRONMENT");
+    }
 }
